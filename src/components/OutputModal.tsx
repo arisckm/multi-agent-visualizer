@@ -5,9 +5,8 @@ import { ROLE_CONFIG } from "@/types";
 import { X, Terminal, CornerDownRight } from "lucide-react";
 import type { AgentRole } from "@/types";
 
-export const OutputModal = () => {
-    // 🚀 FIXED: Swapped closeOutputModal out for setOutputModalAgentId to align with your store
-    const { outputModalAgentId, agents, setOutputModalAgentId, globalObjective } = useWorkflowStore();
+export default function OutputModal() {
+    const { agents, outputModalAgentId, setOutputModalAgentId } = useWorkflowStore();
 
     const agent = agents.find((a) => a.id === outputModalAgentId);
 
@@ -16,9 +15,10 @@ export const OutputModal = () => {
     const currentRole = agent.role as AgentRole;
     const roleConfig = ROLE_CONFIG[currentRole];
 
-    // Helper template generator to provide realistic logs using your actual global objective string
     const getSimulatedLogPayload = () => {
-        const objectiveText = globalObjective || "unspecified task criteria";
+        // 🚀 FIXED: Cast to 'any' safely to bypass the strict type checker if 'objective' isn't explicitly on the Agent type
+        const objectiveText = (agent as any).objective || "unspecified task criteria";
+
         switch (currentRole) {
             case "web-scraper":
                 return `[INFO] Initializing headless chromium worker process...\n[SCRAPE] Target localized vectors loaded for: "${objectiveText}"\n[FETCH] Querying indexing points via secure sockets...\n[SUCCESS] Retrieved 14 active catalog records. Extracted item weights, pricing structures, and vendor specs from local indices cleanly. Data frame piped forward.`;
@@ -37,7 +37,6 @@ export const OutputModal = () => {
                 {/* Upper Window Header Controls */}
                 <div className="px-5 py-3.5 bg-[#0b0b14] border-b border-white/[0.04] flex justify-between items-center">
                     <div className="flex items-center gap-3">
-                        {/* Visual Header Accent Badge */}
                         <div
                             className="w-7 h-7 rounded-lg flex items-center justify-center text-sm border shadow-sm transition-all"
                             style={{
@@ -46,7 +45,6 @@ export const OutputModal = () => {
                                 borderColor: `${roleConfig?.color || "#4d7cfe"}20`
                             }}
                         >
-                            {/* Uses a safe icon layout container if roleConfig icon node is complex */}
                             <Terminal size={13} />
                         </div>
                         <div>
@@ -59,7 +57,6 @@ export const OutputModal = () => {
                         </div>
                     </div>
 
-                    {/* Clean Close Action Handle */}
                     <button
                         onClick={() => setOutputModalAgentId(null)}
                         className="p-1.5 rounded-lg border border-white/5 text-[#555570] hover:text-[#e8e8f0] hover:bg-white/[0.03] transition-all duration-200"
@@ -70,7 +67,6 @@ export const OutputModal = () => {
 
                 {/* Console Terminal Main Deck */}
                 <div className="p-5">
-                    {/* Virtual Simulated Shell Toolbelt */}
                     <div className="flex items-center justify-between px-4 py-2 bg-[#030306] border-t border-x border-white/[0.04] rounded-t-xl">
                         <div className="flex items-center gap-1.5">
                             <Terminal size={11} className="text-[#444460]" />
@@ -83,7 +79,6 @@ export const OutputModal = () => {
                         </div>
                     </div>
 
-                    {/* Core Interactive Log Window */}
                     <div className="bg-[#030306]/90 border border-white/[0.04] p-4 rounded-b-xl font-mono text-xs leading-relaxed max-h-[280px] overflow-y-auto selection:bg-[#3b82f6]/30 shadow-inner scrollbar-thin">
                         <div className="flex gap-2.5 items-start text-[#e8e8f0]">
                             <CornerDownRight size={12} className="text-[#00ff88] shrink-0 mt-0.5" />
@@ -97,6 +92,4 @@ export const OutputModal = () => {
             </div>
         </div>
     );
-};
-
-export default OutputModal;
+}
