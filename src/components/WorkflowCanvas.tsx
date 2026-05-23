@@ -20,7 +20,7 @@ import "@xyflow/react/dist/style.css";
 import { useWorkflowStore } from "@/store/workflowStore";
 import AgentNode from "@/components/nodes/AgentNode";
 import AgentPanel from "@/components/panels/AgentPanel";
-import OutputModal from "@/components/panels/OutputModal";
+import OutputModal from "@/components/OutputModal";
 import Header from "@/components/ui/Header";
 import EmptyState from "@/components/ui/EmptyState";
 import StatusToast from "@/components/ui/StatusToast";
