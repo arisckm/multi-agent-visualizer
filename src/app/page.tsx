@@ -1,5 +1,5 @@
 import WorkflowCanvas from "@/components/WorkflowCanvas";
-import { OutputModal } from "@/components/OutputModal";
+import OutputModal from "@/components/OutputModal";
 
 export default function Home() {
   return (
