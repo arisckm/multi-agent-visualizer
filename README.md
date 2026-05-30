@@ -2,7 +2,7 @@
 
 **Mission Control for your AI team.** Design, connect, and execute multi-agent workflows on a beautiful dark-mode canvas.
 
-![Multi-Agent AI Workflow Visualiser](https://via.placeholder.com/1200x600/050507/4d7cfe?text=Multi-Agent+AI+Workflow+Visualiser)
+
 
 ---
 
